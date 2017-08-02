@@ -29,15 +29,10 @@ var Paddle = function(context) {
         this.clear()
         context.fillRect(this.x, this.y, this.width, this.height)
     }
-    obj.intersect = function(ball){
-        if(ball.y + ball.width >= this.y){
-            if(ball.x >= this.x && ball.x <= this.x + this.width){
-                log('相撞')
-                ball.y = this.y - ball.width - 1
-                return true
-            }
-        }
-        return false
+    obj.intersectWith = function(ball){
+        var isIntersect = intersect(this,ball)
+        isIntersect && (ball.y = this.y - ball.height - 1)
+        return isIntersect
     }
     obj.init()
     return obj;

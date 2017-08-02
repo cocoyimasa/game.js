@@ -4,7 +4,7 @@ var Ball = function(context) {
         width: 15,
         height: 15,
         x: 20,
-        y: 100,
+        y: 120,
         speedX: 5,
         speedY: 5,
     }
@@ -22,19 +22,25 @@ var Ball = function(context) {
     obj.fire = function(){
         this.fired = true
     }
-    obj.update = function() {
-        //this.clear()
+    obj.move = function(){
         if(this.fired){
-            if(this.x <= 0 || this.x+this.width >=400){
+            if(this.x < 0 || this.x+this.width >400){
                 this.speedX *= -1
             }
-            if(this.y <= 0|| this.y + this.height >= 400){
+            if(this.y < 0|| this.y + this.height > 400){
                 this.speedY *= -1
             }
             this.x += this.speedX
             this.y += this.speedY
         }
-        context.fillRect(this.x, this.y, this.width, this.height)
+    }
+    obj.update = function() {
+        //this.clear()
+        this.move()
+        //context.fillRect(this.x, this.y, this.width, this.height)
+    }
+    obj.rebound = function(){
+        this.speedY *= -1
     }
     obj.init()
     return obj;
